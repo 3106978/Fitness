@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Fitness.BL.Model
-{/// <summary>
+{
+    [Serializable]
+    /// <summary>
     /// Gender 
     /// </summary>
     public class Gender

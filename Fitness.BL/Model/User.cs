@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Fitness.BL.Model
-{/// <summary>
+{
+    
+    [Serializable]
+    /// <summary>
 /// User
 /// </summary>
     public class User
