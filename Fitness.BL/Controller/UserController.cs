@@ -16,18 +16,26 @@ namespace Fitness.BL.Controller
         /// <summary>
         /// User app
         /// </summary>
-        public User User { get;}
+        public List<User> Users { get;}
+        public User CurrentUser { get; }
+        public bool IsNewUser { get; } = false;
         /// <summary>
         /// Create new User's controller
         /// </summary>
         /// <param name="user"></param>
-        public UserController(string userName, string genderName, DateTime birdthDay, double weight, double height)
+        public UserController(string userName)
         {
-            //TODO: Check
-
-            var gender = new Gender(genderName);
-            User = new User(userName, gender, birdthDay, weight, height);
-           
+            if (string.IsNullOrWhiteSpace(userName))
+                throw new ArgumentNullException("Name of user can't be empty", nameof(userName));
+            Users = GetUsersData();
+            CurrentUser = Users.SingleOrDefault(u => u.Name == userName);
+            if (CurrentUser==null)
+            {
+                CurrentUser = new User(userName);
+                Users.Add(CurrentUser);
+                IsNewUser = true;
+                Save();
+            }
         }
 
        
@@ -39,25 +47,36 @@ namespace Fitness.BL.Controller
             var formatter = new BinaryFormatter();
             using (var fs=new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, User);
+                formatter.Serialize(fs, Users);
             }
             
         }
         /// <summary>
-        /// Get data of user
+        /// Get List of user's data
         /// </summary>
         /// <returns>User app</returns>
-        public UserController()
+        private List<User> GetUsersData()
         {
             var formatter = new BinaryFormatter();
             using (var fs = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                if (formatter.Deserialize(fs) is User user) {
-                    User = user;
-                }
+                if (formatter.Deserialize(fs) is List<User> users)
+                    return users;
 
-                // TODO: What to do when the user is not readeble?
+                else
+                    return new List<User>();
             }
+            
+        }
+
+        public void SetNewUserData(string genderName, DateTime birthDate, double weight=1, double height=1)
+        {
+            //check
+            CurrentUser.Gender = new Gender(genderName);
+            CurrentUser.BirthDate = birthDate;
+            CurrentUser.Weight = weight;
+            CurrentUser.Height = height;
+            Save();
         }
     }
 }
