@@ -13,9 +13,11 @@ namespace Fitness.BL.Model
 /// </summary>
     public class User
     {/// <summary>
-    /// Name
-    /// </summary>
-        public string Name { get; }// set name just one time
+     /// Name
+     /// </summary>
+     /// 
+        public int ID { get; set; }
+        public string Name { get; set; }// set name just one time
         /// <summary>
         /// Gender
         /// </summary>
@@ -40,6 +42,10 @@ namespace Fitness.BL.Model
                     age--;
                 return age; } }
 
+        public User()
+        {
+
+        }
         public User(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

@@ -11,15 +11,18 @@ namespace Fitness.BL.Model
     [Serializable]
     public  class Eating
     {
-       
-        public DateTime TimeofEating  { get; set; }//moment
+        public int ID { get; set; }
+        public DateTime Moment  { get; set; }//moment
         public Dictionary<Food, double> Foods { get; set; }
-        public User User { get;}
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
+
+        public Eating() { }
 
         public Eating(User user)
         {
             User = user ?? throw new ArgumentNullException("User can't be empty", nameof(user));
-            TimeofEating = DateTime.UtcNow;
+            Moment = DateTime.UtcNow;
             Foods = new Dictionary<Food, double>();
         }
 

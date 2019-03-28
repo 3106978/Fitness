@@ -12,14 +12,19 @@ namespace Fitness.BL.Model
     /// </summary>
     public class Gender
     {/// <summary>
-    /// Name
-    /// </summary>
-        public string Name { get; }
+     /// Name
+     /// </summary>
+        public int ID { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Create new Gender
         /// </summary>
         /// <param name="name"> Name of gender</param>
+        public Gender()
+        {
+
+        }
         public Gender(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

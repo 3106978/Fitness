@@ -9,16 +9,17 @@ namespace Fitness.BL.Model
     [Serializable]
     public class Food
     {
-        public string Name { get; }
-        public double Proteins  { get; }
-        public double Fats  { get; }
-        public double Carbohydrates  { get;}
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public double Proteins  { get; set; }
+        public double Fats  { get; set; }
+        public double Carbohydrates  { get; set; }
         /// <summary>
         /// Calories by 100 g of product
         /// </summary>
-        public double Calories  { get;}
-       
+        public double Calories  { get; set; }
 
+        public Food() { }        
         public Food(string name) : this(name, 0, 0, 0, 0) { }
         
 
